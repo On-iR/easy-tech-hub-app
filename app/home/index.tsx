@@ -1,18 +1,9 @@
-import Gradient from "../assets/Icons/Gradient";
-import DocumentData from "../assets/Icons/DocumentData";
-import LightBulbPerson from "../assets/Icons/LightbulbPerson";
-import Rocket from "../assets/Icons/Rocket";
-import Logo from "../assets/Icons/Logo";
-import EditScreenInfo from "@/components/EditScreenInfo";
+import Gradient from "../../assets/Icons/Gradient";
+import DocumentData from "../../assets/Icons/DocumentData";
+import LightBulbPerson from "../../assets/Icons/LightbulbPerson";
+import Rocket from "../../assets/Icons/Rocket";
+import Logo from "../../assets/Icons/Logo";
 import { Box, ScrollView, Text } from "@gluestack-ui/themed";
-
-export default function TabOneScreen() {
-  return <Home />;
-}
-
-const Home = () => {
-  return <Container />;
-};
 
 const FeatureCard = ({ iconSvg: IconSvg, name, desc }: any) => {
   return (
@@ -45,7 +36,7 @@ const FeatureCard = ({ iconSvg: IconSvg, name, desc }: any) => {
   );
 };
 
-const Container = () => {
+export default function Home() {
   return (
     <Box flex={1} backgroundColor="$black">
       <ScrollView
@@ -140,4 +131,4 @@ const Container = () => {
       </ScrollView>
     </Box>
   );
-};
+}
