@@ -3,32 +3,18 @@ import {
   VStack,
   Input,
   InputField,
-  InputSlot,
-  InputIcon,
-  ButtonText,
   Button,
-  EyeIcon,
-  EyeOffIcon,
-  Box,
-  Image,
-  Center,
-  Heading,
   Pressable,
+  Heading,
+  Box,
+  ButtonText,
 } from "@gluestack-ui/themed";
 import { useState } from "react";
 import { Keyboard, Platform } from "react-native";
 
-const logo = require("../../assets/images/sign-in-logo.jpg");
-
-export default function SignIn() {
+export default function SignUpConfirm() {
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
-  const switchShowPassword = () => {
-    setShowPassword((showState) => {
-      return !showState;
-    });
-  };
+  const [code, setCode] = useState("");
 
   return (
     // キーボード外をタップしてキーボードをしまえるようにする
@@ -44,9 +30,6 @@ export default function SignIn() {
       <Box flex={1} alignItems="center" mt="$20">
         <FormControl maxWidth="$80" rounded="$md">
           <VStack space="2xl">
-            <Center>
-              <Image h="$32" w="$32" alt="sign-in-logo" source={logo} />
-            </Center>
             <VStack space="xs">
               <Heading size="sm" color="$textLight900">
                 E-mail
@@ -65,33 +48,28 @@ export default function SignIn() {
             </VStack>
             <VStack space="xs">
               <Heading size="sm" color="$textLight900">
-                Password
+                Code
               </Heading>
               <Input w="$80" borderColor="$borderLight500">
                 <InputField
-                  type={showPassword ? "text" : "password"}
+                  type="text"
                   keyboardType="default"
-                  value={password}
+                  autoCapitalize="none" // 自動大文字入力をOFF
+                  value={code}
                   onChangeText={(text: string) => {
-                    setPassword(text);
+                    setCode(text);
                   }}
                 />
-                <InputSlot pr="$3" onPress={switchShowPassword}>
-                  <InputIcon
-                    as={showPassword ? EyeIcon : EyeOffIcon}
-                    color="$darkBlue500"
-                  />
-                </InputSlot>
               </Input>
             </VStack>
             <Button
               ml="auto"
               onPress={() => {
                 console.log(email);
-                console.log(password);
+                console.log(code);
               }}
             >
-              <ButtonText color="$white">SignIn</ButtonText>
+              <ButtonText color="$white">Confirm</ButtonText>
             </Button>
           </VStack>
         </FormControl>

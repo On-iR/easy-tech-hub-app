@@ -16,14 +16,12 @@ import {
 import { useState } from "react";
 import { Keyboard, Platform } from "react-native";
 
-const logo = require("../../assets/images/sign-in-logo.jpg");
-
 export default function SignUp() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const handleState = () => {
+  const switchShowPassword = () => {
     setShowPassword((showState) => {
       return !showState;
     });
@@ -72,7 +70,7 @@ export default function SignUp() {
                     setPassword(text);
                   }}
                 />
-                <InputSlot pr="$3" onPress={handleState}>
+                <InputSlot pr="$3" onPress={switchShowPassword}>
                   <InputIcon
                     as={showPassword ? EyeIcon : EyeOffIcon}
                     color="$darkBlue500"
@@ -93,7 +91,7 @@ export default function SignUp() {
                     setConfirmPassword(text);
                   }}
                 />
-                <InputSlot pr="$3" onPress={handleState}>
+                <InputSlot pr="$3" onPress={switchShowPassword}>
                   <InputIcon
                     as={showPassword ? EyeIcon : EyeOffIcon}
                     color="$darkBlue500"
@@ -104,11 +102,12 @@ export default function SignUp() {
             <Button
               ml="auto"
               onPress={() => {
+                console.log(email);
                 console.log(password);
                 console.log(confirmPassword);
               }}
             >
-              <ButtonText color="$white">SignOut</ButtonText>
+              <ButtonText color="$white">SignUp</ButtonText>
             </Button>
           </VStack>
         </FormControl>
