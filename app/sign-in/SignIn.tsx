@@ -10,17 +10,19 @@ import {
   EyeIcon,
   EyeOffIcon,
   Box,
-  Pressable,
+  Image,
+  Center,
   Heading,
+  Pressable,
 } from "@gluestack-ui/themed";
 import { useState } from "react";
 import { Keyboard, Platform } from "react-native";
-import { signUp } from "aws-amplify/auth";
+import { signIn, signOut } from "aws-amplify/auth";
+const logo = require("../../assets/images/sign-in-logo.jpg");
 
-export default function SignUp() {
+export default function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const switchShowPassword = () => {
     setShowPassword((showState) => {
@@ -42,6 +44,9 @@ export default function SignUp() {
       <Box flex={1} alignItems="center" mt="$20">
         <FormControl maxWidth="$80" rounded="$md">
           <VStack space="2xl">
+            <Center>
+              <Image h="$32" w="$32" alt="sign-in-logo" source={logo} />
+            </Center>
             <VStack space="xs">
               <Heading size="sm" color="$textLight900">
                 E-mail
@@ -79,50 +84,20 @@ export default function SignUp() {
                 </InputSlot>
               </Input>
             </VStack>
-            <VStack space="xs">
-              <Heading size="sm" color="$textLight900">
-                Confirm Password
-              </Heading>
-              <Input w="$80" borderColor="$borderLight500">
-                <InputField
-                  type={showPassword ? "text" : "password"}
-                  keyboardType="default"
-                  value={confirmPassword}
-                  onChangeText={(text: string) => {
-                    setConfirmPassword(text);
-                  }}
-                />
-                <InputSlot pr="$3" onPress={switchShowPassword}>
-                  <InputIcon
-                    as={showPassword ? EyeIcon : EyeOffIcon}
-                    color="$darkBlue500"
-                  />
-                </InputSlot>
-              </Input>
-            </VStack>
             <Button
               ml="auto"
               onPress={async () => {
-                console.log(
-                  "サインアップ押下",
-                  email,
-                  password,
-                  confirmPassword
-                );
-
-                if (password !== confirmPassword) {
-                  console.log("パスワード不一致");
-                  return;
-                }
-                // Cognitoの設定なのか登録メソッド読んだらリンクメールが飛んできた。もうすこし設定やら挙動を確認する必要ありそう
-                const result = await signUp({
+                console.log("サインイン押下", email, password);
+                await signOut({ global: true });
+                const result = await signIn({
                   username: email,
                   password: password,
+                  options: { authFlowType: "USER_PASSWORD_AUTH" },
                 });
                 console.log(JSON.stringify(result));
               }}
             >
-              <ButtonText color="$white">SignUp</ButtonText>
+              <ButtonText color="$white">SignIn</ButtonText>
             </Button>
           </VStack>
         </FormControl>

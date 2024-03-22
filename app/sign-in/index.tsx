@@ -17,6 +17,7 @@ import {
 } from "@gluestack-ui/themed";
 import { useState } from "react";
 import { Keyboard, Platform } from "react-native";
+import { signIn, signOut, fetchAuthSession } from "aws-amplify/auth";
 
 const logo = require("../../assets/images/sign-in-logo.jpg");
 
@@ -86,9 +87,18 @@ export default function SignIn() {
             </VStack>
             <Button
               ml="auto"
-              onPress={() => {
-                console.log(email);
-                console.log(password);
+              onPress={async () => {
+                console.log("サインイン押下", email, password);
+                await signOut({ global: true });
+                const result = await signIn({
+                  username: email,
+                  password: password,
+                  options: { authFlowType: "USER_PASSWORD_AUTH" }, // パスワードによる認証はこれを設定しないといけない＆CognitoのアプリクライアントでもALLOW_USER_PASSWORD_AUTHを許可する必要あり
+                });
+                console.log(JSON.stringify(result));
+
+                const session = await fetchAuthSession();
+                console.log(session.tokens?.idToken?.toString()); // これをAuthorizationヘッダに追加すればAPIの認証を突破できる
               }}
             >
               <ButtonText color="$white">SignIn</ButtonText>

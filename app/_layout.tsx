@@ -11,6 +11,9 @@ import { useEffect } from "react";
 import { GluestackUIProvider, Text } from "@gluestack-ui/themed";
 import { config } from "@gluestack-ui/config";
 import { useColorScheme } from "@/components/useColorScheme";
+import { Amplify } from "aws-amplify";
+import authConfig from "../config/auth.json";
+Amplify.configure(authConfig);
 
 export {
   // Catch any errors thrown by the Layout component.
