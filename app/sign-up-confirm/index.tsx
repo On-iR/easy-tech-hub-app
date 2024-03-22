@@ -12,6 +12,7 @@ import {
 import { useState } from "react";
 import { Keyboard, Platform } from "react-native";
 
+// リンクメールを使えればこのページは不要
 export default function SignUpConfirm() {
   const [email, setEmail] = useState("");
   const [code, setCode] = useState("");
